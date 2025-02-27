@@ -1,18 +1,34 @@
-DATA_PATH = '../data/'
-CHROMA_PATH = '../database/'
+parameters = {
+    'bge-m3': {
+        'chunk_size': 1024,
+        'chunk_overlap': 256,
+    },
+    'mxbai-embed-large': {
+        'chunk_size': 1024,
+        'chunk_overlap': 256,
+    },
+    'llama3': {
+        'chunk_size': 4096,
+        'chunk_overlap': 1024,
+    },
+}
 
-CHUNK_SIZE = 1024
-CHUNK_OVERLAP = 256
+EMB_MODEL_NAME = 'llama3'
+LLM_MODEL_NAME = 'llama3'
+
+CHUNK_SIZE = parameters[EMB_MODEL_NAME]['chunk_size']
+CHUNK_OVERLAP = parameters[EMB_MODEL_NAME]['chunk_overlap']
 BATCH_SIZE = 16
 
-MODEL_NAME = 'llama3'
+DATA_PATH = '../data/'
+CHROMA_PATH = f'../database/{EMB_MODEL_NAME}/'
 
 K = 5
 PROMPT_TEMPLATE = '''
-    Answer the question based only on the following context:
-    CONTEXT:
-    {context}
-    \n\n\n\n
-    QUESTION:
-    {question}
+Answer the question based only on the following context:
+Context:
+{context}
+\n\n\n\n
+Question:
+{question}
 '''

@@ -31,7 +31,7 @@ def query_rag(query_text: str):
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query_text)
 
-    model = ChatOllama(model=MODEL_NAME)
+    model = ChatOllama(model=LLM_MODEL_NAME)
     response = model.invoke(prompt)
     answer = response.content
 

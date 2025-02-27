@@ -56,7 +56,7 @@ def split_documents(documents: list[Document], chunk_size=CHUNK_SIZE, chunk_over
 # EMBEDDING FUNCTION
 from langchain_ollama import OllamaEmbeddings
 
-def get_embedding_function(model_name=MODEL_NAME):
+def get_embedding_function(model_name=EMB_MODEL_NAME):
     """
     Returns an embedding function using the specified model.
     

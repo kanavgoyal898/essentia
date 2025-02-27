@@ -52,7 +52,8 @@ You will be prompted to enter a question. The system will retrieve relevant docu
 Modify `constants.py` to customize:
 - `DATA_PATH`: Path to the directory containing PDFs.
 - `CHUNK_SIZE` and `CHUNK_OVERLAP`: Control document chunking.
-- `MODEL_NAME`: Name of the embedding model.
+- `EMB_MODEL_NAME`: Name of the embedding model.
+- `LLM_MODEL_NAME`: Name of the large language model.
 - `CHROMA_PATH`: Directory for storing the ChromaDB index.
 - `K`: Number of retrieved chunks per query.
 - `PROMPT_TEMPLATE`: Defines the format for querying the language model.
