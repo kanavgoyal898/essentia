@@ -1,11 +1,13 @@
 import os
 from tqdm import tqdm
+from multiprocessing import cpu_count
 
 DATA_PATH = '../data/'
 CHROMA_PATH = '../database/'
 
-CHUNK_SIZE = 1024
-CHUNK_OVERLAP = 256
+CHUNK_SIZE = 256
+CHUNK_OVERLAP = 64
+BATCH_SIZE = 16
 
 MODEL_NAME = 'llama3'
 
@@ -121,8 +123,11 @@ def add_to_chroma(chunks: list[Document], embedding_function=None):
     )
 
     print("Adding chunks to ChromaDB...")
-    for chunk in tqdm(chunks, desc="Processing chunks", unit="chunk"):
-        db.add_documents([chunk])
+
+    batch_size = BATCH_SIZE
+    for i in tqdm(range(0, len(chunks), batch_size), desc="Processing chunks", unit="batch"):
+        db.add_documents(chunks[i:i+batch_size])
+
     print("Database saved successfully.")
 
     return db
