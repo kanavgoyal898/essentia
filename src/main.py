@@ -5,6 +5,8 @@ DATA_PATH = '../data/'
 CHUNK_SIZE = 1024
 CHUNK_OVERLAP = 256
 
+MODEL_NAME = 'llama3'
+
 # LOADING THE DATA
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 
@@ -63,3 +65,24 @@ chunks = split_documents(documents)
 print(f"Split {len(documents):,} documents into {len(chunks):,} chunks")
 print(f"Sample chunk: \n{chunks[0]}")
 print("-------------------")
+
+# EMBEDDING FUNCTION
+from langchain_community.embeddings.ollama import OllamaEmbedding
+
+def get_embedding_function(model_name=MODEL_NAME):
+    """
+    Returns an embedding function using the specified model.
+    
+    Args:
+        model_name (str): Name of the embedding model (default: MODEL_NAME).
+    
+    Returns:
+        OllamaEmbedding: Embedding function instance.
+    """
+    
+    embeddings = OllamaEmbedding(
+        model=model_name,
+    )
+    return embeddings
+
+embedding_function = get_embedding_function()
