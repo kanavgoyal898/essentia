@@ -1,6 +1,8 @@
 import os
+from tqdm import tqdm
 
 DATA_PATH = '../data/'
+CHROMA_PATH = '../database/'
 
 CHUNK_SIZE = 1024
 CHUNK_OVERLAP = 256
@@ -67,7 +69,7 @@ print(f"Sample chunk: \n{chunks[0]}")
 print("-------------------")
 
 # EMBEDDING FUNCTION
-from langchain_community.embeddings.ollama import OllamaEmbedding
+from langchain_ollama import OllamaEmbeddings
 
 def get_embedding_function(model_name=MODEL_NAME):
     """
@@ -77,12 +79,53 @@ def get_embedding_function(model_name=MODEL_NAME):
         model_name (str): Name of the embedding model (default: MODEL_NAME).
     
     Returns:
-        OllamaEmbedding: Embedding function instance.
+        OllamaEmbeddings: Embedding function instance.
     """
-    
-    embeddings = OllamaEmbedding(
+
+    embeddings = OllamaEmbeddings(
         model=model_name,
     )
     return embeddings
 
 embedding_function = get_embedding_function()
+print(f"Sample embedding function: \n{embedding_function}")
+print("-------------------")
+
+# CREATING THE DATABASE
+from langchain_chroma import Chroma
+
+def add_to_chroma(chunks: list[Document], embedding_function=None):
+    """
+    Adds document chunks to a Chroma vector database.
+
+    Args:
+        chunks (list[Document]): List of document chunks to store.
+        embedding_function (callable, optional): Function returning an embedding model. 
+                                                 Defaults to get_embedding_function().
+    
+    Returns:
+        Chroma: The Chroma vector database instance.
+    """
+
+    if not chunks:
+        print("Warning: No chunks to add to the database.")
+        return None
+    
+    if not embedding_function:
+        embedding_function = get_embedding_function()
+        
+    db = Chroma(
+        persist_directory=CHROMA_PATH,
+        embedding_function=embedding_function,
+    )
+
+    print("Adding chunks to ChromaDB...")
+    for chunk in tqdm(chunks, desc="Processing chunks", unit="chunk"):
+        db.add_documents([chunk])
+    print("Database saved successfully.")
+
+    return db
+
+db = add_to_chroma(chunks)
+print(f"Sample database: \n{db}")
+print("-------------------")
