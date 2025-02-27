@@ -31,3 +31,35 @@ documents = load_documents()
 print(f"Loaded {len(documents):,} documents")
 print(f"Sample document: \n{documents[0]}")
 print("-------------------")
+
+# SPLIT THE DOCUMENTS
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.schema.document import Document
+
+def split_documents(documents: list[Document], chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP):
+    """
+    Splits documents into smaller chunks.
+
+    Args:
+        documents (list[Document]): List of documents to split.
+        chunk_size (int): Size of each chunk (default: CHUNK_SIZE).
+        chunk_overlap (int): Overlap between chunks (default: CHUNK_OVERLAP).
+
+    Returns:
+        list: List of document chunks.
+    """
+
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+        length_function=len,
+        is_separator_regex=False
+    )
+
+    splits = text_splitter.split_documents(documents)
+    return splits
+
+chunks = split_documents(documents)
+print(f"Split {len(documents):,} documents into {len(chunks):,} chunks")
+print(f"Sample chunk: \n{chunks[0]}")
+print("-------------------")
