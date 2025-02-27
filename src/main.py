@@ -26,6 +26,7 @@ def load_documents(data_path=DATA_PATH):
     files = sorted([file for file in os.listdir(data_path) if file.endswith(".pdf")])
     for file in files:
         print("Indexing `{}` PDF file in {} directory".format(file, data_path))
+    print()
 
     document_loader = PyPDFDirectoryLoader(data_path)
     documents = document_loader.load()
@@ -34,7 +35,7 @@ def load_documents(data_path=DATA_PATH):
 documents = load_documents()
 print(f"Loaded {len(documents):,} documents")
 print(f"Sample document: \n{documents[0]}")
-print("-------------------")
+print("-------------------\n")
 
 # SPLIT THE DOCUMENTS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -66,7 +67,7 @@ def split_documents(documents: list[Document], chunk_size=CHUNK_SIZE, chunk_over
 chunks = split_documents(documents)
 print(f"Split {len(documents):,} documents into {len(chunks):,} chunks")
 print(f"Sample chunk: \n{chunks[0]}")
-print("-------------------")
+print("-------------------\n")
 
 # EMBEDDING FUNCTION
 from langchain_ollama import OllamaEmbeddings
@@ -89,7 +90,7 @@ def get_embedding_function(model_name=MODEL_NAME):
 
 embedding_function = get_embedding_function()
 print(f"Sample embedding function: \n{embedding_function}")
-print("-------------------")
+print("-------------------\n")
 
 # CREATING THE DATABASE
 from langchain_chroma import Chroma
@@ -128,4 +129,4 @@ def add_to_chroma(chunks: list[Document], embedding_function=None):
 
 db = add_to_chroma(chunks)
 print(f"Sample database: \n{db}")
-print("-------------------")
+print("-------------------\n")
