@@ -1,9 +1,5 @@
 parameters = {
-    'bge-m3': {
-        'chunk_size': 1024,
-        'chunk_overlap': 256,
-    },
-    'mxbai-embed-large': {
+    'nomic-embed-text': {
         'chunk_size': 1024,
         'chunk_overlap': 256,
     },
@@ -13,7 +9,7 @@ parameters = {
     },
 }
 
-EMB_MODEL_NAME = 'llama3'
+EMB_MODEL_NAME = 'nomic-embed-text'
 LLM_MODEL_NAME = 'llama3'
 
 CHUNK_SIZE = parameters[EMB_MODEL_NAME]['chunk_size']

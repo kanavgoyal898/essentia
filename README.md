@@ -64,5 +64,20 @@ Install all dependencies using:
 pip install -r requirements.txt
 ```
 
+## Examples
+
+```sh
+QUESTION: What is physics?
+______________________
+ANSWER:
+Physics is the most fundamental and all-inclusive of the sciences, and has had a profound effect on all scientific development. It is the present-day equivalent of what used to be called "natural philosophy", from which most of our modern sciences arose.
+
+SOURCES:
+    - ../data/The Feynman Lectures on Physics, Vol. 1.pdf :: page: 76
+    - ../data/The Feynman Lectures on Physics, Vol. 1.pdf :: page: 50
+    - ../data/The Feynman Lectures on Physics, Vol. 1.pdf :: page: 67
+    - ../data/The Feynman Lectures on Physics, Vol. 1.pdf :: page: 81
+```
+
 ## Contributing
 Contributions are welcome! Feel free to open issues or submit pull requests.
